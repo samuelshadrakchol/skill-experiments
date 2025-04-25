@@ -1,0 +1,389 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+ 1. Count number of words in a string
+int countWords(const string& s) {
+    stringstream ss(s);
+    string word;
+    int count = 0;
+    while (ss >> word) ++count;
+    return count;
+}
+
+ 2. Matrix Transpose
+vector<vector<int>> transposeMatrix(const vector<vector<int>>& mat) {
+    int n = mat.size(), m = mat[0].size();
+    vector<vector<int>> transposed(m, vector<int>(n));
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < m; ++j)
+            transposed[j][i] = mat[i][j];
+    return transposed;
+}
+
+ 3. Fibonacci Series
+vector<int> generateFibonacci(int n) {
+    vector<int> fib(n);
+    if (n > 0) fib[0] = 0;
+    if (n > 1) fib[1] = 1;
+    for (int i = 2; i < n; ++i)
+        fib[i] = fib[i - 1] + fib[i - 2];
+    return fib;
+}
+
+ 4. Exponential Power (M^N)
+long long fastPower(long long m, long long n) {
+    long long res = 1;
+    for (int i = 0; i < n; ++i)
+        res *= m;
+    return res;
+}
+
+ 5. Time Complexity of the given function
+int tryfun(int n) {
+    int cnt = 0;
+    for (int k = 0; k < n; k++)
+        for (int p = k; p > 0; p--)
+            cnt = cnt + 1;
+    return cnt;
+}
+
+
+ EXPERIMENT 2: Bit Manipulation and Math
+
+ 1. Check if nth bit is set
+bool isBitSet(int number, int bitPosition) {
+    return (number & (1 << bitPosition)) != 0;
+}
+
+ 2. Find Maximum AND value from pairs in array
+int findMaxANDValue(vector<int>& arr) {
+    int maxVal = 0;
+    int n = arr.size();
+    for (int i = 0; i < n; ++i)
+        for (int j = i + 1; j < n; ++j)
+            maxVal = max(maxVal, arr[i] & arr[j]);
+    return maxVal;
+}
+
+ 3. Check whether number is even or odd using bitwise operator
+string checkEvenOdd(int n) {
+    return (n & 1) ? "Odd" : "Even";
+}
+
+ 4. Number of digits in factorial of a number
+int countDigitsInFactorial(int n) {
+    if (n == 0 || n == 1) return 1;
+    double digits = 0;
+    for (int i = 2; i <= n; ++i)
+        digits += log10(i);
+    return floor(digits) + 1;
+}
+
+ 5. Count digits in a given number
+int countDigits(int n) {
+    int count = 0;
+    if (n == 0) return 1;
+    while (n != 0) {
+        n /= 10;
+        ++count;
+    }
+    return count;
+}
+
+ EXPERIMENT 3: Recursion Problem Solving
+
+ 1. Print numbers from N to 1 using recursion
+void printDescending(int n) {
+    if (n == 0) return;
+    cout << n << " ";
+    printDescending(n - 1);
+}
+
+ 2. Find the sum of digits using recursion
+int sumOfDigits(int n) {
+    if (n == 0) return 0;
+    return (n % 10) + sumOfDigits(n / 10);
+}
+
+ 3. Power using recursion
+int powerRecursive(int base, int exponent) {
+    if (exponent == 0) return 1;
+    return base * powerRecursive(base, exponent - 1);
+}
+
+ 4. Print all permutations of a string
+void generatePermutations(string &s, int l, int r) {
+    if (l == r) {
+        cout << s << endl;
+        return;
+    }
+    for (int i = l; i <= r; ++i) {
+        swap(s[l], s[i]);
+        generatePermutations(s, l + 1, r);
+        swap(s[l], s[i]);
+    }
+}
+
+ 5. Count subsets with a given sum
+int countSubsetsWithSum(vector<int>& arr, int n, int sum) {
+    if (sum == 0) return 1;
+    if (n == 0) return 0;
+    if (arr[n - 1] > sum)
+        return countSubsetsWithSum(arr, n - 1, sum);
+    return countSubsetsWithSum(arr, n - 1, sum) + countSubsetsWithSum(arr, n - 1, sum - arr[n - 1]);
+}
+
+ EXPERIMENT 4: Array Operations
+
+ 1. Finding Second Largest Element in Array
+int findSecondLargest(const vector<int>& arr) {
+    int largest = INT_MIN, second = INT_MIN;
+    for (int num : arr) {
+        if (num > largest) {
+            second = largest;
+            largest = num;
+        } else if (num > second && num != largest) {
+            second = num;
+        }
+    }
+    return second;
+}
+
+ 2. Check if Array is Sorted
+bool isSorted(const vector<int>& arr) {
+    for (int i = 1; i < arr.size(); ++i)
+        if (arr[i] < arr[i - 1]) return false;
+    return true;
+}
+
+ 3. Move all zeroes to end
+void moveZeroes(vector<int>& arr) {
+    int index = 0;
+    for (int i = 0; i < arr.size(); ++i)
+        if (arr[i] != 0)
+            swap(arr[i], arr[index++]);
+}
+
+ 4. Rotate Array to left by one place
+void rotateLeftByOne(vector<int>& arr) {
+    int temp = arr[0];
+    for (int i = 0; i < arr.size() - 1; ++i)
+        arr[i] = arr[i + 1];
+    arr[arr.size() - 1] = temp;
+}
+
+ 5. Leaders in an Array
+vector<int> findLeaders(const vector<int>& arr) {
+    vector<int> leaders;
+    int maxRight = INT_MIN;
+    for (int i = arr.size() - 1; i >= 0; --i) {
+        if (arr[i] > maxRight) {
+            leaders.push_back(arr[i]);
+            maxRight = arr[i];
+        }
+    }
+    reverse(leaders.begin(), leaders.end());
+    return leaders;
+}
+
+ 6. Transpose of a matrix (already implemented)
+
+ 7. Arrange matrix elements in snake pattern
+vector<int> snakePattern(const vector<vector<int>>& matrix) {
+    vector<int> result;
+    for (int i = 0; i < matrix.size(); ++i) {
+        if (i % 2 == 0)
+            result.insert(result.end(), matrix[i].begin(), matrix[i].end());
+        else
+            result.insert(result.end(), matrix[i].rbegin(), matrix[i].rend());
+    }
+    return result;
+}
+
+ ExXPERIMENT 5: Hashing
+ 1. Separate Chaining Hashing
+void insertChaining(vector<list<int>>& hashTable, int key, int size) {
+    int index = key % size;
+    hashTable[index].push_back(key);
+}
+
+ 2. Linear Probing
+void insertLinearProbing(vector<int>& hashTable, int key, int size) {
+    int index = key % size;
+    while (hashTable[index] != -1) {
+        index = (index + 1) % size;
+    }
+    hashTable[index] = key;
+}
+
+ EXPERIMENT 6: Searching
+
+ Binary Search Recursive
+int binarySearchRec(vector<int>& arr, int low, int high, int x) {
+    if (low > high) return -1;
+    int mid = low + (high - low) / 2;
+    if (arr[mid] == x) return mid;
+    else if (arr[mid] > x) return binarySearchRec(arr, low, mid - 1, x);
+    return binarySearchRec(arr, mid + 1, high, x);
+}
+
+ First Occurrence
+int firstOccurrence(vector<int>& arr, int x) {
+    int low = 0, high = arr.size() - 1, result = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == x) {
+            result = mid;
+            high = mid - 1;
+        } else if (arr[mid] > x) high = mid - 1;
+        else low = mid + 1;
+    }
+    return result;
+}
+
+ EXPERIMENT 7: Sorting
+
+ Bubble Sort
+void bubbleSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 0; i < n - 1; ++i)
+        for (int j = 0; j < n - i - 1; ++j)
+            if (arr[j] > arr[j + 1])
+                swap(arr[j], arr[j + 1]);
+}
+
+ Insertion Sort
+void insertionSort(vector<int>& arr) {
+    for (int i = 1; i < arr.size(); ++i) {
+        int key = arr[i], j = i - 1;
+        while (j >= 0 && arr[j] > key)
+            arr[j + 1] = arr[j--];
+        arr[j + 1] = key;
+    }
+}
+
+ EXPERIMENT 8: String Operations
+
+ Palindrome Check
+bool isPalindrome(string s) {
+    int i = 0, j = s.length() - 1;
+    while (i < j)
+        if (s[i++] != s[j--]) return false;
+    return true;
+}
+
+ Substring Search
+int findSubstring(string src, string target) {
+    return src.find(target);
+}
+
+ Anagram Check
+bool isAnagram(string s1, string s2) {
+    sort(s1.begin(), s1.end());
+    sort(s2.begin(), s2.end());
+    return s1 == s2;
+}
+
+ EXPERIMENT 9: Stack
+
+ Parentheses Check
+bool isBalanced(string expr) {
+    stack<char> s;
+    for (char c : expr) {
+        if (c == '(' || c == '[' || c == '{') s.push(c);
+        else {
+            if (s.empty()) return false;
+            char top = s.top(); s.pop();
+            if ((c == ')' && top != '(') ||
+                (c == ']' && top != '[') ||
+                (c == '}' && top != '{')) return false;
+        }
+    }
+    return s.empty();
+}
+
+
+ EXPERIMENT 10: Queue
+
+ Queue using Array
+class MyQueue {
+    int front, rear, size;
+    vector<int> arr;
+public:
+    MyQueue(int capacity) : front(0), rear(0), size(capacity), arr(capacity) {}
+
+    void enqueue(int x) {
+        if ((rear + 1) % size == front) {
+            cout << "Queue Full";
+
+            return;
+        }
+        arr[rear] = x;
+        rear = (rear + 1) % size;
+    }
+
+    void dequeue() {
+        if (front == rear) {
+            cout << "Queue Empty
+";
+            return;
+        }
+        front = (front + 1) % size;
+    }
+};
+
+ EXPERIMENT 11: Binary Tree
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+void inorder(TreeNode* root) {
+    if (!root) return;
+    inorder(root->left);
+    cout << root->val << " ";
+    inorder(root->right);
+}
+
+ EXPERIMENT  12: Graph
+
+void addEdge(vector<int> adj[], int u, int v) {
+    adj[u].push_back(v);
+    adj[v].push_back(u); // For undirected graph
+}
+
+void printGraph(vector<int> adj[], int V) {
+    for (int i = 0; i < V; ++i) {
+        cout << i << ": ";
+        for (int x : adj[i]) cout << x << " ";
+        cout << endl;
+    }
+}
+
+int main() {
+     Sample test to demonstrate functionality
+    string s = "This is a test string";
+    cout << "Word Count: " << countWords(s) << endl;
+
+    vector<vector<int>> mat = {{1, 2, 3}, {4, 5, 6}};
+    vector<vector<int>> trans = transposeMatrix(mat);
+    cout << "Transpose:\n";
+    for (auto row : trans) {
+        for (int val : row)
+            cout << val << " ";
+        cout << endl;
+    }
+
+    cout << "Fibonacci Series: ";
+    vector<int> fib = generateFibonacci(10);
+    for (int val : fib) cout << val << " ";
+    cout << endl;
+
+    cout << "Power (2^5): " << fastPower(2, 5) << endl;
+
+    return 0;
+}
